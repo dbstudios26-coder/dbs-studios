@@ -1,0 +1,2282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us — DB Studios</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+  <style>
+/* ═══════════════════════════════════════════════════════
+   DB STUDIOS — style.css
+   Apple-inspired premium design
+   ═══════════════════════════════════════════════════════ */
+
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap");
+
+/* ─── TOKENS ─────────────────────────────────────────── */
+:root {
+  --bg-light:   #f5f5f7;
+  --bg-cream:   #faf7f2;
+  --bg-white:   #ffffff;
+  --bg-dark:    #1d1d1f;
+  --bg-darker:  #111113;
+
+  --text:       #1d1d1f;
+  --muted:      #6e6e73;
+  --muted-dark: rgba(255,255,255,0.55);
+
+  --gold:       #b88545;
+  --gold-light: #f5e6cc;
+  --gold-deep:  #8e642d;
+
+  --wa:         #25d366;
+  --wa-dark:    #128c7e;
+
+  --accent:     #0071e3;
+
+  --shadow-sm:  0 2px 12px rgba(0,0,0,0.08);
+  --shadow-md:  0 8px 32px rgba(0,0,0,0.10);
+  --shadow-lg:  0 24px 60px rgba(0,0,0,0.14);
+
+  --radius:     18px;
+  --radius-sm:  10px;
+  --radius-xs:  6px;
+
+  --max-w: 1200px;
+  --nav-h: 58px;
+
+  --font-display: "Cinzel", serif;
+  --font-body:    "Plus Jakarta Sans", sans-serif;
+}
+
+/* ─── RESET ──────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+body { font-family: var(--font-body); color: var(--text); background: var(--bg-light); line-height: 1.6; }
+img, video { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button, input, textarea, select { font: inherit; }
+ul { list-style: none; }
+
+/* ─── ANIMATION HELPERS ──────────────────────────────── */
+.animate-in {
+  opacity: 0;
+  transform: translateY(22px);
+  animation: fadeUp 0.7s cubic-bezier(0.22,1,0.36,1) forwards;
+  animation-delay: var(--delay, 0s);
+}
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── SCROLL REVEAL ──────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ═══════════════════════════════════════════════════════
+   NAVBAR
+   ═══════════════════════════════════════════════════════ */
+.navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  background: rgba(255,255,255,0.82);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 0.5px solid rgba(0,0,0,0.1);
+  transition: background 0.3s ease, box-shadow 0.3s ease, padding 0.3s ease;
+}
+.navbar.scrolled {
+  background: rgba(255,255,255,0.95);
+  box-shadow: var(--shadow-sm);
+}
+.navbar-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 32px;
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.brand-logo {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+.brand:hover .brand-logo { transform: scale(1.06); }
+.brand-text strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 15px;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+}
+.brand-text small {
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+}
+.main-nav {
+  display: flex;
+  gap: 28px;
+  flex: 1;
+  justify-content: center;
+}
+.main-nav a {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+  position: relative;
+  transition: color 0.2s;
+}
+.main-nav a::after {
+  content: "";
+  position: absolute;
+  bottom: -3px; left: 0;
+  width: 0; height: 1.5px;
+  background: var(--text);
+  transition: width 0.25s ease;
+}
+.main-nav a:hover { color: var(--text); }
+.main-nav a:hover::after { width: 100%; }
+
+.cart-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 18px;
+  border-radius: 980px;
+  border: none;
+  background: var(--bg-dark);
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+  flex-shrink: 0;
+}
+.cart-btn:hover { transform: scale(1.04); background: #333; }
+.cart-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: var(--gold);
+  font-size: 11px;
+  font-weight: 700;
+  color: white;
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  margin-left: auto;
+}
+.hamburger span {
+  display: block;
+  width: 22px; height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: 0.3s;
+}
+
+/* ═══════════════════════════════════════════════════════
+   BUTTONS
+   ═══════════════════════════════════════════════════════ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 980px;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  white-space: nowrap;
+}
+.btn:hover { transform: scale(1.03); }
+.btn:active { transform: scale(0.97); }
+
+.btn-white {
+  background: white;
+  color: var(--text);
+  box-shadow: var(--shadow-sm);
+}
+.btn-dark {
+  background: var(--bg-dark);
+  color: white;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+}
+.btn-dark:hover { background: #333; }
+
+.btn-wa {
+  background: var(--wa);
+  color: white;
+  box-shadow: 0 4px 18px rgba(37,211,102,0.35);
+}
+.btn-wa:hover { filter: brightness(1.06); }
+.btn-wa-large { padding: 14px 32px; font-size: 15px; }
+
+.wa-svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+.btn-add-cart {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  background: var(--bg-dark);
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+.btn-add-cart:hover { background: #333; transform: translateY(-1px); }
+.btn-add-cart:active { transform: translateY(0); }
+
+/* ═══════════════════════════════════════════════════════
+   EYEBROW & SECTION HEADS
+   ═══════════════════════════════════════════════════════ */
+.eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 12px;
+}
+.eyebrow-dark { color: var(--gold); }
+
+.section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 48px;
+}
+.section-head h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  color: var(--text);
+  margin-top: 6px;
+}
+.section-dark .section-head h2 { color: white; }
+.section-desc {
+  max-width: 44ch;
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.7;
+  flex-shrink: 0;
+}
+.section-desc-light { color: var(--muted-dark); }
+
+/* ═══════════════════════════════════════════════════════
+   SECTIONS
+   ═══════════════════════════════════════════════════════ */
+.section { padding: 96px 0; }
+.section-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 40px;
+}
+.section-light  { background: var(--bg-white); }
+.section-cream  { background: var(--bg-cream); }
+.section-dark   { background: var(--bg-dark); }
+
+/* ═══════════════════════════════════════════════════════
+   HERO
+   ═══════════════════════════════════════════════════════ */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  gap: 60px;
+  padding: calc(var(--nav-h) + 60px) 40px 80px;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  overflow: hidden;
+}
+.hero-noise {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -2;
+  background:
+    radial-gradient(ellipse at 15% 20%, rgba(184,133,69,0.18) 0%, transparent 50%),
+    radial-gradient(ellipse at 85% 60%, rgba(30,52,45,0.15) 0%, transparent 45%),
+    linear-gradient(170deg, #1a1a1c 0%, #242426 50%, #1a2218 100%);
+}
+.hero-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: -1;
+}
+.hero-glow-1 {
+  width: 500px; height: 500px;
+  top: -100px; left: -150px;
+  background: rgba(184,133,69,0.12);
+}
+.hero-glow-2 {
+  width: 400px; height: 400px;
+  bottom: 0; right: -100px;
+  background: rgba(37,211,102,0.06);
+}
+
+.hero-content { color: white; }
+.gold-text { color: var(--gold); }
+
+.hero-h1 {
+  font-family: var(--font-display);
+  font-size: clamp(3.2rem, 7vw, 6rem);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.0;
+  margin: 0 0 22px;
+}
+.hero-sub {
+  font-size: 17px;
+  color: rgba(255,255,255,0.6);
+  max-width: 46ch;
+  line-height: 1.7;
+  margin-bottom: 34px;
+}
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+}
+.hero-stats {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 20px 28px;
+  background: rgba(255,255,255,0.06);
+  border: 0.5px solid rgba(255,255,255,0.12);
+  border-radius: var(--radius-sm);
+  backdrop-filter: blur(10px);
+  max-width: fit-content;
+}
+.hero-stat { text-align: center; }
+.hero-stat strong {
+  display: block;
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+  font-family: var(--font-display);
+}
+.hero-stat span {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.stat-divider {
+  width: 1px;
+  height: 36px;
+  background: rgba(255,255,255,0.12);
+}
+
+/* Hero card stack */
+.hero-visual { display: flex; justify-content: flex-end; }
+.hero-card-stack { position: relative; width: 320px; height: 420px; }
+.hcard {
+  position: absolute;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  background: #2a2a2c;
+}
+.hcard-back {
+  width: 240px; height: 300px;
+  top: 80px; left: 0;
+  transform: rotate(-6deg);
+  opacity: 0.5;
+}
+.hcard-mid {
+  width: 240px; height: 300px;
+  top: 40px; left: 40px;
+  transform: rotate(-2deg);
+  opacity: 0.75;
+}
+.hcard-front {
+  width: 260px; height: 340px;
+  top: 0; right: 0;
+  transform: rotate(2deg);
+  transition: transform 0.4s ease;
+}
+.hcard-front:hover { transform: rotate(0deg) scale(1.02); }
+.hcard-img {
+  width: 100%; height: 75%;
+  background-size: cover;
+  background-position: center;
+}
+.hcard-body {
+  padding: 14px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.hcard-body strong { font-size: 14px; color: white; }
+.hcard-body span { font-size: 13px; color: var(--gold); font-weight: 600; }
+.hcard-label {
+  position: absolute;
+  top: 14px; left: 14px;
+  background: var(--gold);
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 980px;
+}
+
+/* ═══════════════════════════════════════════════════════
+   PRODUCTS
+   ═══════════════════════════════════════════════════════ */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.product-card {
+  background: var(--bg-white);
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 0.5px solid rgba(0,0,0,0.07);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+.product-media {
+  aspect-ratio: 4/3;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.5s ease;
+}
+.product-card:hover .product-media { transform: scale(1.03); }
+.product-body { padding: 22px; }
+.product-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.product-cat {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.product-price {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+}
+.product-title {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+.product-desc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+
+/* ═══════════════════════════════════════════════════════
+   GALLERY
+   ═══════════════════════════════════════════════════════ */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+.gallery-item {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+}
+.gallery-item:nth-child(3) { grid-column: span 2; }
+.gallery-item img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+.gallery-item:nth-child(3) img { aspect-ratio: 2/1; }
+.gallery-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+}
+.gallery-overlay span {
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.gallery-item:hover .gallery-overlay { background: rgba(0,0,0,0.38); }
+.gallery-item:hover .gallery-overlay span { opacity: 1; }
+.gallery-item:hover img { transform: scale(1.05); }
+
+/* ═══════════════════════════════════════════════════════
+   HOW IT WORKS STEPS
+   ═══════════════════════════════════════════════════════ */
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.step-card {
+  background: rgba(255,255,255,0.05);
+  border: 0.5px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius);
+  padding: 28px;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+.step-card:hover {
+  background: rgba(255,255,255,0.08);
+  transform: translateY(-3px);
+}
+.step-num {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--gold);
+  margin-bottom: 18px;
+}
+.step-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+.step-icon svg { width: 22px; height: 22px; }
+.step-icon-cart { background: rgba(0,113,227,0.15); color: #4fa3ff; }
+.step-icon-wa   { background: rgba(37,211,102,0.15); color: var(--wa); }
+.step-icon-ship { background: rgba(184,133,69,0.15); color: var(--gold); }
+.step-icon-done { background: rgba(52,199,89,0.15); color: #34c759; }
+.step-card h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 10px;
+}
+.step-card p {
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.6;
+}
+
+/* ═══════════════════════════════════════════════════════
+   ORDER SECTION
+   ═══════════════════════════════════════════════════════ */
+.order-layout {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 28px;
+  align-items: start;
+}
+.order-sidebar { display: flex; flex-direction: column; gap: 16px; }
+
+/* Cart panel */
+.cart-panel {
+  background: var(--bg-white);
+  border-radius: var(--radius);
+  padding: 26px;
+  border: 0.5px solid rgba(0,0,0,0.07);
+  box-shadow: var(--shadow-sm);
+}
+.cart-panel h3 {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  padding-bottom: 14px;
+  border-bottom: 0.5px solid rgba(0,0,0,0.08);
+}
+.cart-empty-msg {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+  text-align: center;
+  padding: 16px 0;
+}
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 0.5px solid rgba(0,0,0,0.06);
+}
+.cart-item-name { font-size: 14px; font-weight: 500; }
+.cart-item-price { font-size: 14px; color: var(--muted); font-weight: 500; }
+.cart-item-remove {
+  background: none;
+  border: none;
+  color: #c0392b;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 0 0 0 10px;
+  line-height: 1;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+.cart-item-remove:hover { opacity: 1; }
+.cart-total-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 14px 0 0;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+/* Shiprocket card */
+.shiprocket-card {
+  background: var(--gold-light);
+  border-radius: var(--radius);
+  padding: 22px;
+  border: 0.5px solid rgba(184,133,69,0.3);
+}
+.sr-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--gold-deep);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 10px;
+}
+.sr-header svg { flex-shrink: 0; }
+.shiprocket-card p {
+  font-size: 13px;
+  color: #6e5a3a;
+  line-height: 1.65;
+  margin-bottom: 12px;
+}
+.shiprocket-card ul {
+  padding-left: 0;
+}
+.shiprocket-card li {
+  font-size: 12px;
+  color: #8a6f48;
+  padding: 4px 0;
+  padding-left: 14px;
+  position: relative;
+}
+.shiprocket-card li::before {
+  content: "·";
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+  font-size: 16px;
+  line-height: 1;
+  top: 5px;
+}
+
+/* Order form */
+.order-form {
+  background: var(--bg-white);
+  border-radius: var(--radius);
+  padding: 32px;
+  border: 0.5px solid rgba(0,0,0,0.07);
+  box-shadow: var(--shadow-sm);
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.form-label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.form-label-full { margin-bottom: 16px; }
+.form-label input,
+.form-label textarea {
+  background: var(--bg-light);
+  border: 0.5px solid rgba(0,0,0,0.12);
+  border-radius: 12px;
+  padding: 13px 16px;
+  font-size: 15px;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+}
+.form-label input:focus,
+.form-label textarea:focus {
+  border-color: rgba(0,113,227,0.5);
+  box-shadow: 0 0 0 3px rgba(0,113,227,0.1);
+  background: white;
+}
+.form-label textarea { resize: vertical; min-height: 100px; font-family: var(--font-body); }
+.form-actions {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 12px;
+  margin-top: 8px;
+}
+.form-note {
+  font-size: 13px;
+  margin-top: 14px;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  display: none;
+  font-weight: 500;
+}
+.form-note.success {
+  background: #f0fdf4;
+  color: #15803d;
+  display: block;
+}
+.form-note.error {
+  background: #fef2f2;
+  color: #dc2626;
+  display: block;
+}
+
+/* ═══════════════════════════════════════════════════════
+   INTEGRATIONS
+   ═══════════════════════════════════════════════════════ */
+.int-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+.int-card {
+  border-radius: var(--radius);
+  padding: 28px;
+  border: 0.5px solid transparent;
+  transition: transform 0.3s ease;
+}
+.int-card:hover { transform: translateY(-4px); }
+.int-card-wa   { background: #f0fdf4; border-color: rgba(37,211,102,0.25); }
+.int-card-ship { background: #fffbeb; border-color: rgba(184,133,69,0.3); }
+.int-card-api  { background: #eff6ff; border-color: rgba(0,113,227,0.2); }
+
+.int-tag {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.int-card-wa   .int-tag { color: #15803d; }
+.int-card-ship .int-tag { color: var(--gold-deep); }
+.int-card-api  .int-tag { color: var(--accent); }
+
+.int-card h3 {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-bottom: 10px;
+}
+.int-card p {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.65;
+}
+.code-block {
+  background: var(--bg-dark);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  font-size: 12px;
+  font-family: "SF Mono", "Fira Code", "Cascadia Code", monospace;
+  margin-top: 14px;
+  line-height: 1.8;
+  color: #a0a0a0;
+}
+.c-comment { color: #5a5a5a; }
+.c-key     { color: #79b8ff; }
+.c-str     { color: #a8ff78; }
+
+/* ═══════════════════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════════════════ */
+.footer {
+  background: var(--bg-darker);
+  padding: 48px 0 32px;
+  color: rgba(255,255,255,0.4);
+}
+.footer-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.footer-logo {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  opacity: 0.7;
+}
+.footer-brand strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 14px;
+  color: rgba(255,255,255,0.7);
+}
+.footer-brand small {
+  font-size: 11px;
+  color: rgba(255,255,255,0.3);
+}
+.footer-nav {
+  display: flex;
+  gap: 24px;
+}
+.footer-nav a {
+  font-size: 13px;
+  color: rgba(255,255,255,0.4);
+  transition: color 0.2s;
+}
+.footer-nav a:hover { color: rgba(255,255,255,0.8); }
+.footer-copy { font-size: 12px; }
+
+/* ═══════════════════════════════════════════════════════
+   TOAST NOTIFICATION
+   ═══════════════════════════════════════════════════════ */
+.toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: var(--bg-dark);
+  color: white;
+  padding: 14px 24px;
+  border-radius: 980px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: var(--shadow-lg);
+  z-index: 999;
+  transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), opacity 0.4s ease;
+  opacity: 0;
+  white-space: nowrap;
+}
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* ═══════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════ */
+@media (max-width: 1080px) {
+  .hero { grid-template-columns: 1fr; min-height: auto; }
+  .hero-visual { display: none; }
+  .product-grid { grid-template-columns: repeat(2, 1fr); }
+  .steps-grid { grid-template-columns: repeat(2, 1fr); }
+  .int-grid { grid-template-columns: 1fr; }
+  .order-layout { grid-template-columns: 1fr; }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .gallery-item:nth-child(3) { grid-column: span 1; }
+  .gallery-item:nth-child(3) img { aspect-ratio: 1; }
+}
+
+@media (max-width: 768px) {
+  :root { --nav-h: 54px; }
+  .navbar-inner { padding: 0 20px; gap: 16px; }
+  .main-nav { display: none; position: fixed; top: var(--nav-h); left: 0; right: 0; background: rgba(255,255,255,0.97); backdrop-filter: blur(20px); flex-direction: column; padding: 24px; gap: 20px; border-bottom: 0.5px solid rgba(0,0,0,0.1); }
+  .main-nav.open { display: flex; }
+  .main-nav a { font-size: 17px; }
+  .hamburger { display: flex; }
+  .cart-btn { display: none; }
+
+  .section-inner { padding: 0 20px; }
+  .section { padding: 64px 0; }
+  .hero { padding: calc(var(--nav-h) + 40px) 20px 60px; gap: 40px; }
+  .hero-h1 { font-size: clamp(2.6rem, 10vw, 4rem); }
+  .hero-stats { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .stat-divider { width: 36px; height: 1px; }
+  .section-head { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .section-head h2 { font-size: clamp(2rem, 9vw, 3rem); }
+  .product-grid { grid-template-columns: 1fr; }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .steps-grid { grid-template-columns: 1fr; }
+  .form-grid { grid-template-columns: 1fr; }
+  .form-actions { grid-template-columns: 1fr; }
+  .footer-inner { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .footer-nav { flex-wrap: wrap; gap: 16px; }
+  .int-grid { grid-template-columns: 1fr; }
+}
+
+/* ═══════════════════════════════════════════════════════
+   FILE UPLOAD
+   ═══════════════════════════════════════════════════════ */
+.file-input-hidden {
+  display: none;
+}
+.file-upload-zone {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.file-upload-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 20px;
+  background: var(--bg-light);
+  border: 1.5px dashed rgba(0,0,0,0.2);
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
+  text-transform: none;
+  letter-spacing: 0;
+}
+.file-upload-btn:hover {
+  border-color: var(--gold);
+  background: var(--gold-light);
+  color: var(--gold-deep);
+}
+.file-preview {
+  display: none;
+  font-size: 13px;
+  font-weight: 600;
+  color: #15803d;
+  background: #f0fdf4;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 0.5px solid rgba(37,211,102,0.3);
+}
+.upload-progress {
+  display: none;
+  margin-top: 12px;
+  background: var(--bg-light);
+  border-radius: 12px;
+  padding: 14px 16px;
+  border: 0.5px solid rgba(0,0,0,0.08);
+}
+.progress-track {
+  width: 100%;
+  height: 6px;
+  background: rgba(0,0,0,0.08);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--gold), #d4a055);
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+.progress-text {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+/* ═══════════════════════════════════════════════════════
+   ABOUT US SECTION
+   ═══════════════════════════════════════════════════════ */
+.about-hero {
+  background: linear-gradient(160deg, #1d1d1f 0%, #2a2a2c 60%, #1a2218 100%);
+  padding: 100px 0 80px;
+  position: relative;
+  overflow: hidden;
+}
+.about-hero::before {
+  content: "";
+  position: absolute;
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  background: rgba(184,133,69,0.08);
+  filter: blur(80px);
+  top: -100px; right: -100px;
+  pointer-events: none;
+}
+.about-hero-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 40px;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 60px;
+  align-items: center;
+}
+.about-hero-content { color: white; }
+.about-hero-content h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  margin: 0 0 20px;
+}
+.about-hero-content p {
+  font-size: 17px;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.75;
+  max-width: 50ch;
+}
+.about-founder-card {
+  background: rgba(255,255,255,0.05);
+  border: 0.5px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius);
+  padding: 32px;
+  backdrop-filter: blur(10px);
+  text-align: center;
+}
+.founder-avatar {
+  width: 90px; height: 90px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold), #d4a055);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 600;
+  color: white;
+}
+.founder-name {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 4px;
+}
+.founder-role {
+  font-size: 12px;
+  color: var(--gold);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.founder-bio {
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.7;
+}
+.founder-badges {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+.founder-badge {
+  background: rgba(184,133,69,0.15);
+  border: 0.5px solid rgba(184,133,69,0.3);
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 980px;
+  letter-spacing: 0.06em;
+}
+
+.about-values {
+  background: var(--bg-white);
+  padding: 96px 0;
+}
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-top: 48px;
+}
+.value-card {
+  background: var(--bg-light);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  border: 0.5px solid rgba(0,0,0,0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.value-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+.value-icon {
+  width: 48px; height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+.value-icon svg { width: 24px; height: 24px; }
+.vi-speed  { background: rgba(0,113,227,0.1); color: #0071e3; }
+.vi-quality{ background: rgba(184,133,69,0.12); color: var(--gold); }
+.vi-price  { background: rgba(52,199,89,0.1); color: #34c759; }
+.vi-custom { background: rgba(175,82,222,0.1); color: #af52de; }
+.value-card h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+.value-card p {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.about-equipment {
+  background: var(--bg-cream);
+  padding: 96px 0;
+}
+.equipment-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+  margin-top: 48px;
+}
+.equipment-list { display: flex; flex-direction: column; gap: 16px; }
+.equipment-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  background: var(--bg-white);
+  border-radius: var(--radius-sm);
+  padding: 20px;
+  border: 0.5px solid rgba(0,0,0,0.06);
+  transition: transform 0.2s ease;
+}
+.equipment-item:hover { transform: translateX(4px); }
+.eq-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  background: var(--gold-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--gold-deep);
+}
+.eq-icon svg { width: 22px; height: 22px; }
+.eq-content h4 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.eq-content p {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.55;
+}
+.equipment-visual {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.eq-stat-card {
+  background: var(--bg-dark);
+  border-radius: var(--radius);
+  padding: 28px 20px;
+  text-align: center;
+  color: white;
+}
+.eq-stat-card:first-child {
+  grid-column: span 2;
+  background: linear-gradient(135deg, var(--gold-deep), var(--gold));
+}
+.eq-stat-num {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 6px;
+}
+.eq-stat-label {
+  font-size: 12px;
+  opacity: 0.7;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+}
+
+.about-story {
+  background: var(--bg-dark);
+  padding: 96px 0;
+}
+.story-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+.story-content .eyebrow { color: var(--gold); }
+.story-content h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 600;
+  color: white;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 8px 0 20px;
+}
+.story-content p {
+  font-size: 15px;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+.story-cta {
+  display: flex;
+  gap: 12px;
+  margin-top: 28px;
+  flex-wrap: wrap;
+}
+.story-milestones {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.milestone {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.milestone-year {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gold);
+  min-width: 44px;
+  padding-top: 2px;
+}
+.milestone-content {
+  background: rgba(255,255,255,0.05);
+  border: 0.5px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+  flex: 1;
+}
+.milestone-content h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 4px;
+}
+.milestone-content p {
+  font-size: 13px;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.5;
+  margin: 0;
+}
+
+@media (max-width: 1080px) {
+  .about-hero-inner, .equipment-layout, .story-inner { grid-template-columns: 1fr; }
+  .values-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .about-hero-inner, .equipment-layout, .story-inner { padding: 0 20px; gap: 32px; }
+  .values-grid { grid-template-columns: 1fr; }
+  .equipment-visual { grid-template-columns: 1fr; }
+  .eq-stat-card:first-child { grid-column: span 1; }
+  .about-hero-inner, .story-inner { padding: 0; }
+}
+
+/* ═══════════════════════════════════════════════════════
+   CART HOVER DROPDOWN
+   ═══════════════════════════════════════════════════════ */
+.cart-wrapper {
+  position: relative;
+  flex-shrink: 0;
+}
+.cart-dropdown {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  width: 320px;
+  background: white;
+  border-radius: var(--radius);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15), 0 4px 16px rgba(0,0,0,0.08);
+  border: 0.5px solid rgba(0,0,0,0.08);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s ease;
+  z-index: 300;
+  pointer-events: none;
+}
+.cart-dropdown::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  right: 22px;
+  width: 12px; height: 12px;
+  background: white;
+  border-left: 0.5px solid rgba(0,0,0,0.08);
+  border-top: 0.5px solid rgba(0,0,0,0.08);
+  transform: rotate(45deg);
+}
+.cart-wrapper:hover .cart-dropdown,
+.cart-dropdown.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: all;
+}
+.cart-dropdown-inner {
+  padding: 16px;
+}
+.cart-dropdown-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 12px;
+  border-bottom: 0.5px solid rgba(0,0,0,0.08);
+  margin-bottom: 12px;
+}
+.cart-dropdown-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.cart-order-id {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--gold);
+  background: var(--gold-light);
+  padding: 3px 8px;
+  border-radius: 980px;
+  letter-spacing: 0.06em;
+}
+.cart-dropdown-empty {
+  font-size: 13px;
+  color: var(--muted);
+  text-align: center;
+  padding: 16px 0;
+}
+.cart-dropdown-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 9px 0;
+  border-bottom: 0.5px solid rgba(0,0,0,0.05);
+  gap: 10px;
+}
+.cart-dropdown-item:last-of-type {
+  border-bottom: none;
+}
+.cdi-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+.cdi-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+.cdi-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cdi-cat {
+  font-size: 10px;
+  color: var(--muted);
+  font-weight: 500;
+}
+.cdi-price {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  flex-shrink: 0;
+}
+.cdi-remove {
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0 0 0 4px;
+  line-height: 1;
+  opacity: 0.5;
+  transition: opacity 0.2s, color 0.2s;
+  flex-shrink: 0;
+}
+.cdi-remove:hover { opacity: 1; color: #dc2626; }
+.cart-dropdown-footer {
+  border-top: 1px solid rgba(0,0,0,0.1);
+  padding-top: 12px;
+  margin-top: 4px;
+}
+.cart-dropdown-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.cart-dropdown-total span:first-child {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.cart-dropdown-total span:last-child {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  font-family: var(--font-display);
+}
+.cart-checkout-btn {
+  width: 100%;
+  padding: 12px;
+  background: var(--bg-dark);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.cart-checkout-btn:hover { background: #333; transform: translateY(-1px); }
+.cart-checkout-btn:active { transform: translateY(0); }
+
+/* ORDER ID BADGE in form */
+.order-id-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--gold-light);
+  border: 0.5px solid rgba(184,133,69,0.3);
+  border-radius: 10px;
+  padding: 10px 16px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+.order-id-badge svg { flex-shrink: 0; color: var(--gold-deep); }
+.order-id-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gold-deep);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  display: block;
+}
+.order-id-value {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  font-family: var(--font-display);
+  letter-spacing: 0.05em;
+}
+
+/* ═══════════════════════════════════════════════════
+   PAGE TRANSITION SYSTEM
+   ═══════════════════════════════════════════════════ */
+
+/* Curtain overlay that sweeps across on enter/exit */
+.page-curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  display: flex;
+}
+.curtain-panel {
+  flex: 1;
+  background: #1d1d1f;
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.7s cubic-bezier(0.76, 0, 0.24, 1);
+}
+.curtain-panel:nth-child(2) { transition-delay: 0.04s; }
+.curtain-panel:nth-child(3) { transition-delay: 0.08s; }
+.curtain-panel:nth-child(4) { transition-delay: 0.12s; }
+.curtain-panel:nth-child(5) { transition-delay: 0.16s; }
+
+.page-curtain.enter .curtain-panel {
+  transform: scaleY(1);
+  transform-origin: bottom;
+}
+.page-curtain.exit .curtain-panel {
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.65s cubic-bezier(0.76, 0, 0.24, 1);
+}
+.page-curtain.exit .curtain-panel:nth-child(2) { transition-delay: 0.05s; }
+.page-curtain.exit .curtain-panel:nth-child(3) { transition-delay: 0.10s; }
+.page-curtain.exit .curtain-panel:nth-child(4) { transition-delay: 0.15s; }
+.page-curtain.exit .curtain-panel:nth-child(5) { transition-delay: 0.20s; }
+
+/* Loading label on curtain */
+.curtain-label {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10000;
+  color: white;
+  font-family: "Cinzel", serif;
+  font-size: clamp(1.2rem, 3vw, 2rem);
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.curtain-label.visible { opacity: 1; }
+.curtain-gold {
+  display: inline-block;
+  color: #b88545;
+  margin-left: 10px;
+}
+
+/* Page content fade + slide on load */
+.page-content {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.page-content.loaded {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ═══════════════════════════════════════════════════
+   HERO SECTION ENHANCEMENTS
+   ═══════════════════════════════════════════════════ */
+.about-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(184,133,69,0.15);
+  border: 0.5px solid rgba(184,133,69,0.3);
+  border-radius: 980px;
+  padding: 7px 16px;
+  margin-bottom: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.badge-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  animation: pulse-dot 2s infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.7); }
+}
+
+/* Printer spec card */
+.printer-card {
+  background: rgba(255,255,255,0.04);
+  border: 0.5px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius);
+  padding: 22px;
+  margin-top: 18px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.printer-icon {
+  width: 48px; height: 48px;
+  border-radius: 12px;
+  background: rgba(184,133,69,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--gold);
+}
+.printer-info { flex: 1; }
+.printer-model {
+  font-size: 15px;
+  font-weight: 700;
+  color: white;
+  font-family: var(--font-display);
+  display: block;
+  margin-bottom: 4px;
+}
+.printer-specs {
+  font-size: 12px;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.6;
+}
+.printer-badge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: rgba(184,133,69,0.15);
+  border: 0.5px solid rgba(184,133,69,0.3);
+  padding: 4px 10px;
+  border-radius: 980px;
+  white-space: nowrap;
+}
+
+/* ═══════════════════════════════════════════════════
+   STAGGER ANIMATION FOR CARDS
+   ═══════════════════════════════════════════════════ */
+.stagger-child {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.stagger-child.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.stagger-child:nth-child(2) { transition-delay: 0.1s; }
+.stagger-child:nth-child(3) { transition-delay: 0.2s; }
+.stagger-child:nth-child(4) { transition-delay: 0.3s; }
+
+/* ═══════════════════════════════════════════════════
+   COUNTING NUMBERS ANIMATION
+   ═══════════════════════════════════════════════════ */
+.count-up {
+  display: inline-block;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ═══════════════════════════════════════════════════
+   TIMELINE CONNECTOR LINE
+   ═══════════════════════════════════════════════════ */
+.story-milestones {
+  position: relative;
+}
+.story-milestones::before {
+  content: "";
+  position: absolute;
+  left: 21px;
+  top: 24px;
+  bottom: 24px;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+}
+.milestone { position: relative; }
+.milestone-year {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--bg-dark);
+  border: 1.5px solid var(--gold);
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+  padding-top: 0;
+  min-width: 44px;
+}
+.milestone-content {
+  flex: 1;
+}
+
+  </style>
+</head>
+<body>
+
+  <!-- ═══ PAGE TRANSITION CURTAIN ═══ -->
+  <div class="page-curtain" id="pageCurtain">
+    <div class="curtain-panel"></div>
+    <div class="curtain-panel"></div>
+    <div class="curtain-panel"></div>
+    <div class="curtain-panel"></div>
+    <div class="curtain-panel"></div>
+  </div>
+  <div class="curtain-label" id="curtainLabel">
+    DB Studios<span class="curtain-gold">·</span>
+  </div>
+
+  <!-- ═══ NAVBAR ═══ -->
+  <header class="navbar" id="navbar">
+    <div class="navbar-inner">
+      <a class="brand transition-link" href="index.html">
+        <img class="brand-logo" src="https://i.ibb.co/FbN4FT2H/DBS-Logo-1.png" alt="DB Studios logo" />
+        <span class="brand-text">
+          <strong>DB Studios</strong>
+          <small>Premium Printing Solutions</small>
+        </span>
+      </a>
+      <nav class="main-nav" id="mainNav">
+        <a class="transition-link" href="index.html#products">Products</a>
+        <a class="transition-link" href="index.html#gallery">Gallery</a>
+        <a class="transition-link" href="index.html#how-it-works">How it works</a>
+        <a class="transition-link" href="index.html#order">Order</a>
+        <a href="about.html" style="color:var(--text); font-weight:700;">About</a>
+      </nav>
+      <a class="cart-btn transition-link" href="index.html#order">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Place Order
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="page-content" id="pageContent">
+  <main>
+
+    <!-- ═══ HERO ═══ -->
+    <section class="about-hero">
+      <div class="about-hero-inner">
+        <div class="about-hero-content">
+          <div class="about-hero-badge animate-in" style="--delay:0.1s">
+            <span class="badge-dot"></span>
+            Guwahati, Assam · Est. February 2026
+          </div>
+          <h1 class="animate-in" style="--delay:0.2s">
+            Built from<br />
+            <span class="gold-text">passion.</span><br />
+            Printed with pride.
+          </h1>
+          <p class="animate-in" style="--delay:0.35s">
+            DB Studios is a premium printing service born in early 2026 in Guwahati, Assam.
+            What started as a single Epson printer and a dream has grown into a trusted
+            print partner for homes, businesses, and events across the region.
+          </p>
+
+          <div class="printer-card animate-in" style="--delay:0.45s">
+            <div class="printer-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+            </div>
+            <div class="printer-info">
+              <span class="printer-model">Epson L4360</span>
+              <span class="printer-specs">EcoTank Inkjet · High-yield refillable ink · Borderless photo printing · A4 precision output</span>
+            </div>
+            <span class="printer-badge">Our Machine</span>
+          </div>
+
+          <div class="hero-actions animate-in" style="--delay:0.55s">
+            <a class="btn btn-white transition-link" href="index.html#products">View Products</a>
+            <a class="btn btn-wa" href="https://wa.me/916002816364" target="_blank" rel="noopener">
+              <svg class="wa-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.374 0 0 5.373 0 12c0 2.135.559 4.134 1.533 5.866L0 24l6.278-1.499A11.954 11.954 0 0012 24c6.626 0 12-5.373 12-12S18.626 0 12 0zm0 21.818a9.818 9.818 0 01-4.98-1.352l-.357-.212-3.727.889.927-3.638-.232-.374A9.821 9.821 0 012.182 12C2.182 6.578 6.579 2.182 12 2.182c5.42 0 9.818 4.396 9.818 9.818 0 5.421-4.398 9.818-9.818 9.818z"/></svg>
+              Order on WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <div class="about-founder-card animate-in" style="--delay:0.3s">
+          <div class="founder-avatar">B</div>
+          <p class="founder-name">Bhargav D B Gogoi</p>
+          <p class="founder-role">Founder &amp; Print Specialist</p>
+          <p class="founder-bio">
+            In early 2026, Bhargav started DB Studios with one printer, one desk,
+            and one clear goal — deliver print quality that Guwahati could be proud of.
+            Every single order is personally reviewed and handled by him to ensure
+            the output matches exactly what each customer envisioned.
+          </p>
+          <div class="founder-badges">
+            <span class="founder-badge">Photo Printing</span>
+            <span class="founder-badge">Label Printing</span>
+            <span class="founder-badge">Poster Printing</span>
+            <span class="founder-badge">Epson L4360</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ STATS BAR ═══ -->
+    <section style="background: var(--bg-dark); padding: 40px 0; border-top: 0.5px solid rgba(255,255,255,0.06);">
+      <div class="section-inner">
+        <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:20px; text-align:center;">
+          <div class="stagger-child">
+            <strong style="display:block; font-family:var(--font-display); font-size:2.2rem; color:var(--gold);">
+              <span class="count-up" data-target="100">0</span>+
+            </strong>
+            <span style="font-size:12px; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:0.1em; font-weight:600;">Happy Customers</span>
+          </div>
+          <div class="stagger-child">
+            <strong style="display:block; font-family:var(--font-display); font-size:2.2rem; color:var(--gold);">
+              <span class="count-up" data-target="48">0</span>hrs
+            </strong>
+            <span style="font-size:12px; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:0.1em; font-weight:600;">Avg. Dispatch</span>
+          </div>
+          <div class="stagger-child">
+            <strong style="display:block; font-family:var(--font-display); font-size:2.2rem; color:var(--gold);">
+              5
+            </strong>
+            <span style="font-size:12px; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:0.1em; font-weight:600;">Paper Types</span>
+          </div>
+          <div class="stagger-child">
+            <strong style="display:block; font-family:var(--font-display); font-size:2.2rem; color:var(--gold);">
+              Pan India
+            </strong>
+            <span style="font-size:12px; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:0.1em; font-weight:600;">Delivery</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ VALUES ═══ -->
+    <section class="about-values">
+      <div class="section-inner">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow eyebrow-dark">Why choose us</p>
+            <h2>What we stand for</h2>
+          </div>
+          <p class="section-desc">Every print that leaves DB Studios reflects our commitment to quality, speed, and personal service.</p>
+        </div>
+        <div class="values-grid">
+          <div class="value-card stagger-child">
+            <div class="value-icon vi-speed">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            </div>
+            <h3>Fast Turnaround</h3>
+            <p>Most orders are dispatched within 24–48 hours. We understand that your deadlines matter — whether it's an event, a product launch, or a last-minute gift.</p>
+          </div>
+          <div class="value-card stagger-child">
+            <div class="value-icon vi-quality">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <h3>Premium Quality</h3>
+            <p>We use high-grade photo and art papers — from 180 GSM glossy to 265 GSM ultra-premium matt — so your prints look professional and last for years.</p>
+          </div>
+          <div class="value-card stagger-child">
+            <div class="value-icon vi-price">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><text x="4" y="18" font-size="16" font-weight="bold" fill="currentColor" stroke="none">₹</text></svg>
+            </div>
+            <h3>Affordable Pricing</h3>
+            <p>Professional print quality should not cost a fortune. DB Studios offers competitive pricing in Indian Rupees with no hidden charges — what you see is what you pay.</p>
+          </div>
+          <div class="value-card stagger-child">
+            <div class="value-icon vi-custom">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+            </div>
+            <h3>Personal Service</h3>
+            <p>Every order is handled directly by Bhargav. No call centres, no middlemen. You get personal attention from inquiry to delivery — always.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SERVICES & PAPER ═══ -->
+    <section class="about-equipment">
+      <div class="section-inner">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow eyebrow-dark">Our services</p>
+            <h2>What we print</h2>
+          </div>
+          <p class="section-desc">Every product is printed with professional-grade materials sourced for durability and colour accuracy.</p>
+        </div>
+        <div class="equipment-layout">
+          <div class="equipment-list">
+            <div class="equipment-item stagger-child">
+              <div class="eq-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+              </div>
+              <div class="eq-content">
+                <h4>Poster Printing</h4>
+                <p>High-quality poster printing for businesses, events, promotions, and wall decor. Available in A4, 6×8, 5×7, and 4×6 inches. Perfect for advertisements and promotional displays.</p>
+              </div>
+            </div>
+            <div class="equipment-item stagger-child">
+              <div class="eq-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+              </div>
+              <div class="eq-content">
+                <h4>Label Printing</h4>
+                <p>Custom labels for products, packaging, branding, and events. Sharp edges, vibrant colours, and strong adhesive finish for professional-grade results.</p>
+              </div>
+            </div>
+            <div class="equipment-item stagger-child">
+              <div class="eq-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              </div>
+              <div class="eq-content">
+                <h4>Photo Printing</h4>
+                <p>Professional photo prints capturing every detail. Ideal for portraits, memories, gifts, and framing. Multiple sizes available with borderless output.</p>
+              </div>
+            </div>
+            <div class="equipment-item stagger-child">
+              <div class="eq-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+              </div>
+              <div class="eq-content">
+                <h4>Custom &amp; Express Orders</h4>
+                <p>Need something unique or urgent? We take custom design requests and offer express printing for time-sensitive projects — just WhatsApp us.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Paper types -->
+          <div>
+            <div style="background:var(--bg-white); border-radius:var(--radius); padding:28px; border:0.5px solid rgba(0,0,0,0.07); box-shadow:var(--shadow-sm);">
+              <p class="eyebrow eyebrow-dark" style="margin-bottom:18px;">Paper options</p>
+              <div style="display:flex; flex-direction:column; gap:10px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; padding:14px 16px; background:var(--bg-light); border-radius:10px;">
+                  <div>
+                    <strong style="font-size:13px; display:block;">High Glossy Photo Paper</strong>
+                    <span style="font-size:12px; color:var(--muted);">Vibrant colours · Mirror finish</span>
+                  </div>
+                  <span style="font-size:11px; font-weight:700; color:var(--gold); background:var(--gold-light); padding:4px 10px; border-radius:980px;">180 GSM</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center; padding:14px 16px; background:var(--bg-light); border-radius:10px;">
+                  <div>
+                    <strong style="font-size:13px; display:block;">High Premium Glossy</strong>
+                    <span style="font-size:12px; color:var(--muted);">Deeper blacks · Richer tones</span>
+                  </div>
+                  <span style="font-size:11px; font-weight:700; color:var(--gold); background:var(--gold-light); padding:4px 10px; border-radius:980px;">200 GSM</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center; padding:14px 16px; background:var(--bg-light); border-radius:10px;">
+                  <div>
+                    <strong style="font-size:13px; display:block;">Ultra Premium Matt</strong>
+                    <span style="font-size:12px; color:var(--muted);">No glare · Gallery-grade finish</span>
+                  </div>
+                  <span style="font-size:11px; font-weight:700; color:var(--gold); background:var(--gold-light); padding:4px 10px; border-radius:980px;">240 GSM</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center; padding:14px 16px; background:var(--bg-light); border-radius:10px;">
+                  <div>
+                    <strong style="font-size:13px; display:block;">Premium Matt Photo Paper</strong>
+                    <span style="font-size:12px; color:var(--muted);">Heavyweight · Archival quality</span>
+                  </div>
+                  <span style="font-size:11px; font-weight:700; color:var(--gold); background:var(--gold-light); padding:4px 10px; border-radius:980px;">265 GSM</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center; padding:14px 16px; background:var(--bg-light); border-radius:10px;">
+                  <div>
+                    <strong style="font-size:13px; display:block;">Plain Paper</strong>
+                    <span style="font-size:12px; color:var(--muted);">Everyday documents &amp; drafts</span>
+                  </div>
+                  <span style="font-size:11px; font-weight:700; color:var(--muted); background:rgba(0,0,0,0.05); padding:4px 10px; border-radius:980px;">Standard</span>
+                </div>
+              </div>
+              <!-- Sizes -->
+              <div style="margin-top:16px; padding:16px; background:var(--bg-dark); border-radius:10px; display:flex; gap:16px; justify-content:space-around; text-align:center;">
+                <div><strong style="font-size:18px; font-family:var(--font-display); color:var(--gold); display:block;">A4</strong><span style="font-size:10px; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:0.08em;">Size</span></div>
+                <div style="width:1px; background:rgba(255,255,255,0.1);"></div>
+                <div><strong style="font-size:18px; font-family:var(--font-display); color:var(--gold); display:block;">6×8</strong><span style="font-size:10px; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:0.08em;">Inches</span></div>
+                <div style="width:1px; background:rgba(255,255,255,0.1);"></div>
+                <div><strong style="font-size:18px; font-family:var(--font-display); color:var(--gold); display:block;">5×7</strong><span style="font-size:10px; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:0.08em;">Inches</span></div>
+                <div style="width:1px; background:rgba(255,255,255,0.1);"></div>
+                <div><strong style="font-size:18px; font-family:var(--font-display); color:var(--gold); display:block;">4×6</strong><span style="font-size:10px; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:0.08em;">Inches</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ OUR STORY ═══ -->
+    <section class="about-story">
+      <div class="story-inner">
+        <div class="story-content">
+          <p class="eyebrow">Our story</p>
+          <h2>Born in Guwahati.<br />Built in 2026.</h2>
+          <p>
+            DB Studios did not start in a fancy office or a commercial print shop.
+            It started in February 2026 with a single Epson L4360 printer, a home
+            desk in Guwahati, and a founder who believed that premium print quality
+            should be accessible to everyone.
+          </p>
+          <p>
+            Bhargav D B Gogoi built DB Studios from the ground up — handling
+            everything personally, from the first test print to the first real customer.
+            By March 2026, word had spread. Local businesses, students, and event
+            organisers started reaching out for posters, labels, and photo prints
+            that actually looked professional.
+          </p>
+          <p>
+            In April 2026, DB Studios went online — giving customers across India
+            the ability to order, upload files, and get prints delivered directly to
+            their door via Shiprocket. What started as one printer is now a growing
+            print studio with big plans.
+          </p>
+          <div class="story-cta">
+            <a class="btn btn-white transition-link" href="index.html#order">Place an Order</a>
+            <a class="btn btn-wa" href="https://wa.me/916002816364" target="_blank" rel="noopener">
+              <svg class="wa-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.374 0 0 5.373 0 12c0 2.135.559 4.134 1.533 5.866L0 24l6.278-1.499A11.954 11.954 0 0012 24c6.626 0 12-5.373 12-12S18.626 0 12 0zm0 21.818a9.818 9.818 0 01-4.98-1.352l-.357-.212-3.727.889.927-3.638-.232-.374A9.821 9.821 0 012.182 12C2.182 6.578 6.579 2.182 12 2.182c5.42 0 9.818 4.396 9.818 9.818 0 5.421-4.398 9.818-9.818 9.818z"/></svg>
+              Chat on WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <div class="story-milestones">
+          <div class="milestone reveal" style="display:flex; gap:16px; align-items:flex-start; margin-bottom:16px;">
+            <span class="milestone-year">Feb<br/>2026</span>
+            <div class="milestone-content">
+              <h4>DB Studios founded</h4>
+              <p>Bhargav sets up the Epson L4360 at home in Guwahati. First prints roll out — photo prints and labels for friends and early customers.</p>
+            </div>
+          </div>
+          <div class="milestone reveal" style="display:flex; gap:16px; align-items:flex-start; margin-bottom:16px;">
+            <span class="milestone-year">Mar<br/>2026</span>
+            <div class="milestone-content">
+              <h4>First business clients</h4>
+              <p>Local businesses discover DB Studios for promotional posters, product labels, and event printing. Word spreads fast across Guwahati.</p>
+            </div>
+          </div>
+          <div class="milestone reveal" style="display:flex; gap:16px; align-items:flex-start; margin-bottom:16px;">
+            <span class="milestone-year">Apr<br/>2026</span>
+            <div class="milestone-content">
+              <h4>Website launched 🚀</h4>
+              <p>DB Studios goes live online. Customers across India can now order, upload print files, and get doorstep delivery via Shiprocket.</p>
+            </div>
+          </div>
+          <div class="milestone reveal" style="display:flex; gap:16px; align-items:flex-start;">
+            <span class="milestone-year">Next</span>
+            <div class="milestone-content">
+              <h4>Growing every day</h4>
+              <p>More products, faster delivery, and bigger dreams. DB Studios is just getting started — and the best prints are yet to come.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ CTA ═══ -->
+    <section class="section section-light" style="text-align:center; padding:80px 0;">
+      <div class="section-inner" style="max-width:600px;">
+        <p class="eyebrow eyebrow-dark">Ready to print?</p>
+        <h2 style="margin-bottom:16px;">Let's create something great together</h2>
+        <p style="color:var(--muted); font-size:15px; line-height:1.7; margin-bottom:32px;">
+          Whether it's a single photo print or a bulk order for your business —
+          DB Studios delivers quality you can see and feel, at prices that make sense.
+        </p>
+        <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+          <a class="btn btn-dark transition-link" href="index.html#order">Place an Order</a>
+          <a class="btn btn-wa" href="https://wa.me/916002816364" target="_blank" rel="noopener">
+            <svg class="wa-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.374 0 0 5.373 0 12c0 2.135.559 4.134 1.533 5.866L0 24l6.278-1.499A11.954 11.954 0 0012 24c6.626 0 12-5.373 12-12S18.626 0 12 0zm0 21.818a9.818 9.818 0 01-4.98-1.352l-.357-.212-3.727.889.927-3.638-.232-.374A9.821 9.821 0 012.182 12C2.182 6.578 6.579 2.182 12 2.182c5.42 0 9.818 4.396 9.818 9.818 0 5.421-4.398 9.818-9.818 9.818z"/></svg>
+            WhatsApp Us
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  </div><!-- end page-content -->
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="https://i.ibb.co/FbN4FT2H/DBS-Logo-1.png" alt="DB Studios" class="footer-logo" />
+        <div>
+          <strong>DB Studios</strong>
+          <small>Premium Printing Solutions · Guwahati, Assam</small>
+        </div>
+      </div>
+      <nav class="footer-nav">
+        <a class="transition-link" href="index.html#products">Products</a>
+        <a class="transition-link" href="index.html#gallery">Gallery</a>
+        <a class="transition-link" href="index.html#order">Order</a>
+        <a href="about.html">About</a>
+      </nav>
+      <p class="footer-copy">© 2026 DB Studios · All rights reserved</p>
+    </div>
+  </footer>
+
+  <script>
+  /* ═══════════════════════════════════════════════════════
+     PAGE TRANSITION ENGINE
+     ═══════════════════════════════════════════════════════ */
+  const curtain    = document.getElementById("pageCurtain");
+  const label      = document.getElementById("curtainLabel");
+  const pageContent = document.getElementById("pageContent");
+
+  /* ── Enter animation (page loads with curtain sweeping away) ── */
+  function playEnterAnimation() {
+    // Start with curtain covering screen
+    curtain.classList.add("enter");
+    label.classList.add("visible");
+
+    // Small delay then sweep curtain away
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        curtain.classList.remove("enter");
+        curtain.classList.add("exit");
+        label.classList.remove("visible");
+
+        // Fade in page content
+        setTimeout(() => {
+          pageContent.classList.add("loaded");
+        }, 200);
+
+        // Clean up
+        setTimeout(() => {
+          curtain.classList.remove("exit");
+        }, 1200);
+      }, 600);
+    });
+  }
+
+  /* ── Exit animation (when clicking a transition-link) ── */
+  function playExitAnimation(href) {
+    curtain.classList.remove("exit");
+    curtain.classList.add("enter");
+    label.classList.add("visible");
+
+    setTimeout(() => {
+      window.location.href = href;
+    }, 900);
+  }
+
+  /* ── Attach to all transition links ── */
+  document.querySelectorAll(".transition-link").forEach(link => {
+    link.addEventListener("click", (e) => {
+      const href = link.getAttribute("href");
+      if (!href || href.startsWith("#") || href.startsWith("http") || href.startsWith("mailto") || href.startsWith("tel")) return;
+      e.preventDefault();
+      playExitAnimation(href);
+    });
+  });
+
+  /* ── Run enter animation on load ── */
+  window.addEventListener("load", () => {
+    playEnterAnimation();
+  });
+
+  /* ═══════════════════════════════════════════════════════
+     NAVBAR
+     ═══════════════════════════════════════════════════════ */
+  const navbar = document.getElementById("navbar");
+  window.addEventListener("scroll", () => {
+    navbar.classList.toggle("scrolled", window.scrollY > 40);
+  }, { passive: true });
+
+  document.getElementById("hamburger").addEventListener("click", () => {
+    document.getElementById("mainNav").classList.toggle("open");
+  });
+
+  /* ═══════════════════════════════════════════════════════
+     SCROLL REVEAL
+     ═══════════════════════════════════════════════════════ */
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add("visible");
+        revealObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll(".reveal, .stagger-child").forEach(el => revealObs.observe(el));
+
+  /* ═══════════════════════════════════════════════════════
+     COUNT UP ANIMATION
+     ═══════════════════════════════════════════════════════ */
+  function animateCount(el) {
+    const target = parseInt(el.dataset.target);
+    const duration = 1800;
+    const start = performance.now();
+    function step(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      // Ease out cubic
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.floor(eased * target);
+      if (progress < 1) requestAnimationFrame(step);
+      else el.textContent = target;
+    }
+    requestAnimationFrame(step);
+  }
+
+  const countObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll(".count-up").forEach(animateCount);
+        countObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll(".stagger-child").forEach(el => countObs.observe(el));
+  </script>
+
+</body>
+</html>
